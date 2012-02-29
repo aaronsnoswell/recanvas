@@ -45,8 +45,38 @@
     <header>
     
     </header>
-    <div role="main">
+    <div role="main" >
         
+		<span id="export" class="header">
+			<input type="button" value="Export .png" id="export" />
+		</span>
+		
+		<span id="preset" class="header">
+			<select id="preset_opt">
+				<option value=""></option>
+			  	<optgroup label="Basic">
+					<option value="dotti">Dotti</option>
+					<option value="checkerboard">Checkerboard</option>
+					<option value="odd">Odd Texture</option>
+				</optgroup>
+				<optgroup label="Procedural Textures">
+						<option value="perlin_noise">Perlin Noise</option>
+					<option value="waterfall">Waterfall</option>
+					<option value="spherical_nebula">Spherical Nebula</option>
+					<option value="green_fibre">Green Fibre Bundle</option>
+					<option value="orange_blue_marble">Orange-Blue Marble</option>
+					<option value="blood_maze">Blood Maze</option>
+					<option value="yellow_lightning">Yellow Lightning</option>
+					<option value="rainbow_wipe">Rainbow Wipe</option>
+					<option value="noisy_rainbow">Noisy Rainbow</option>
+					<option value="burning_cross">Burning Cross</option>
+				</optgroup>
+				<optgroup label="Interactive Examples">
+					<option value="colored_rectangles">Colored Rectangles</option>
+				</optgroup>
+			</select>
+		</span>
+
 		<div id="notepad">
 			
 			<div class="page">
@@ -74,6 +104,373 @@ var canvas = document.querySelector("#canvas"),
 		
 		<div class="assets">
 			<img id="img-sprite" src="img/sprite.png">
+			
+			<!-- Procedural Textures from Kas Thomas' blog http://asserttrue.blogspot.com -->
+			<script type="text/x-recanvas-script" id="preset_perlin_noise"><![CDATA[// Perlin Noise via Ken Perlin's original Java implementation
+
+var canvas = document.querySelector("#canvas"),
+    ctx = canvas.getContext("2d");
+
+var imdata = ctx.createImageData(400, 400);
+
+Utils.loopxy(imdata.width, imdata.height, function(x, y) {
+    var scale = 10,
+        val = Utils.perlin(x/imdata.width*scale, y/imdata.height*scale, 0.8) * 255,
+        pix = new Utils.Pixel(val, val, val, 255);
+
+    Utils.putpix(imdata, x, y, pix);
+});
+
+ctx.putImageData(imdata, 0, 0);
+]]></script>
+
+			<script type="text/x-recanvas-script" id="preset_waterfall"><![CDATA[// Odd 'waterfall' pattern
+
+var canvas = document.querySelector("#canvas"),
+    ctx = canvas.getContext("2d");
+
+var imdata = ctx.createImageData(400, 400);
+
+Utils.loopxy(imdata.width, imdata.height, function(x, y) {
+
+    var nx = x / 30,
+        ny = y / (3 * (y+nx)/imdata.width),
+        n = Utils.perlin(nx, ny, .18);
+
+    var b = Math.round(255*n);
+    var g = b - 255;
+    var r = 0;
+
+    var pix = new Utils.Pixel(r, g, b, 255);
+
+    Utils.putpix(imdata, x, y, pix);
+});
+
+ctx.putImageData(imdata, 0, 0);
+]]></script>
+
+			<script type="text/x-recanvas-script" id="preset_spherical_nebula"><![CDATA[// Glowing nebula pattern
+
+var canvas = document.querySelector("#canvas"),
+    ctx = canvas.getContext("2d");
+
+var imdata = ctx.createImageData(400, 400);
+
+Utils.loopxy(imdata.width, imdata.height, function(x, y) {
+
+    var centerx = imdata.width/2;
+        centery = imdata.height/2,
+        dx = x - centerx,
+        dy = y - centery,
+        dist = (dx*dx + dy*dy)/6000,
+        n = Utils.perlin(x/5, y/5, .18);
+
+    var r = 255 - dist*Math.round(255*n);
+    var g = r - 255;
+    var b = 0;
+
+    var pix = new Utils.Pixel(r, g, b, 255);
+
+    Utils.putpix(imdata, x, y, pix);
+});
+
+ctx.putImageData(imdata, 0, 0);
+]]></script>
+			
+			<script type="text/x-recanvas-script" id="preset_green_fibre"><![CDATA[// Green Fibres
+
+var canvas = document.querySelector("#canvas"),
+    ctx = canvas.getContext("2d");
+
+var imdata = ctx.createImageData(400, 400);
+
+Utils.loopxy(imdata.width, imdata.height, function(x, y) {
+
+    var nx = x / imdata.width,
+        ny = y / imdata.height,
+        sizex = 3,
+        sizey = 66,
+        n = Utils.perlin(sizex*nx, sizey*ny, .1);
+
+    nx = (1+Math.sin(3.14*nx))/2;
+    ny = (1+Math.sin(n*8*ny))/2;
+
+    var b = n*ny*nx*255;
+    var r = ny*b;
+    var g = ny*255;
+
+    var pix = new Utils.Pixel(r, g, b, 255);
+
+    Utils.putpix(imdata, x, y, pix);
+});
+
+ctx.putImageData(imdata, 0, 0);
+]]></script>
+			
+			<script type="text/x-recanvas-script" id="preset_orange_blue_marble"><![CDATA[// Orange-Blue marble
+
+var canvas = document.querySelector("#canvas"),
+    ctx = canvas.getContext("2d");
+
+var imdata = ctx.createImageData(400, 400);
+
+Utils.loopxy(imdata.width, imdata.height, function(x, y) {
+
+    var centerx = imdata.width/2,
+        centery = imdata.height/2,
+        dx = x - centerx,
+        dy = y - centery,
+        dist = 1.2*Math.sqrt(dx*dx + dy*dy),
+        n = Utils.perlin(x/30,y/110,.28),
+        dterm = (dist/88)*Math.round(255*n);
+
+    var r = dist < 150 ? dterm : 255;
+    var b = dist < 150 ? 255-r   : 255; 
+    var g = dist < 151 ? dterm/1.5 : 255;
+
+    var pix = new Utils.Pixel(r, g, b, 255);
+
+    Utils.putpix(imdata, x, y, pix);
+});
+
+ctx.putImageData(imdata, 0, 0);
+]]></script>
+			
+			<script type="text/x-recanvas-script" id="preset_blood_maze"><![CDATA[// A blood-stained maze
+
+var canvas = document.querySelector("#canvas"),
+    ctx = canvas.getContext("2d");
+
+var imdata = ctx.createImageData(400, 400);
+
+Utils.loopxy(imdata.width, imdata.height, function(x, y) {
+
+    var n = Utils.perlin(x/45, y/120, .74);
+    n = Math.cos( n * 85);
+
+    var r = Math.round(n * 255);
+    var b = 255 - r; 
+    var g = r - 255 ;
+
+    var pix = new Utils.Pixel(r, g, b, 255);
+
+    Utils.putpix(imdata, x, y, pix);
+});
+
+ctx.putImageData(imdata, 0, 0);
+]]></script>
+			
+			<script type="text/x-recanvas-script" id="preset_yellow_lightning"><![CDATA[// Whispy Yellow Lightning
+var canvas = document.querySelector("#canvas"),
+    ctx = canvas.getContext("2d");
+
+var imdata = ctx.createImageData(400, 400);
+
+Utils.loopxy(imdata.width, imdata.height, function(x, y) {
+
+    var n = Utils.perlin(x/45, y/120, .74);
+    n = Math.cos( n * 85);
+
+    var nx = x / imdata.width,
+        ny = y / imdata.height,
+        sizex = 1.5,
+        sizey = 10,
+        n = Utils.perlin(sizex*nx, sizey*ny, 0.4);
+
+    nx = (1+Math.cos(n+2*Math.PI*nx-.5));
+    nx = Math.sqrt(nx);
+    ny *= ny;
+
+    var r= 255-nx*255;
+    var g=255-n*nx*255;
+    var b=ny*255;
+
+    var pix = new Utils.Pixel(r, g, b, 255);
+
+    Utils.putpix(imdata, x, y, pix);
+});
+
+ctx.putImageData(imdata, 0, 0);
+]]></script>
+
+			<script type="text/x-recanvas-script" id="preset_rainbow_wipe"><![CDATA[// Rainbow Wipe
+
+var canvas = document.querySelector("#canvas"),
+    ctx = canvas.getContext("2d");
+
+var imdata = ctx.createImageData(400, 400);
+
+Utils.loopxy(imdata.width, imdata.height, function(x, y) {
+
+    // This uses no Perlin noise.
+    var nx = x / imdata.width,
+        ny = y / imdata.height;
+
+    var b = 255 - ny*255*(1 + Math.sin(6.3*nx))/2;
+    var g = 255 - ny*255*(1 + Math.cos(6.3*nx))/2;
+    var r = 255 - ny*255*(1 - Math.sin(6.3*nx))/2;
+
+    var pix = new Utils.Pixel(r, g, b, 255);
+
+    Utils.putpix(imdata, x, y, pix);
+});
+
+ctx.putImageData(imdata, 0, 0);
+]]></script>
+
+			<script type="text/x-recanvas-script" id="preset_noisy_rainbow"><![CDATA[// Noisy Rainbow
+
+var canvas = document.querySelector("#canvas"),
+    ctx = canvas.getContext("2d");
+
+var imdata = ctx.createImageData(400, 400);
+
+Utils.loopxy(imdata.width, imdata.height, function(x, y) {
+
+    var nx = x / imdata.width,
+        ny = y / imdata.height,
+        size = 20,
+        n = Utils.perlin(size*nx, size*ny, .9);
+
+    var b = 255 - 255*(1 + Math.sin(n+6.3*nx))/2;
+    var g = 255 - 255*(1 + Math.cos(n+6.3*nx))/2;
+    var r = 255 - 255*(1 - Math.sin(n+6.3*nx))/2;
+
+    var pix = new Utils.Pixel(r, g, b, 255);
+
+    Utils.putpix(imdata, x, y, pix);
+});
+
+ctx.putImageData(imdata, 0, 0);
+]]></script>
+
+			<script type="text/x-recanvas-script" id="preset_burning_cross"><![CDATA[// Burning Cross
+
+var canvas = document.querySelector("#canvas"),
+    ctx = canvas.getContext("2d");
+
+var imdata = ctx.createImageData(400, 400);
+
+Utils.loopxy(imdata.width, imdata.height, function(x, y) {
+
+    var nx = x / imdata.width,
+        ny = y / imdata.height,
+        size = 19,
+        n = Utils.perlin(size*nx, size*ny, .9);
+
+    nx = (1+Math.cos(n+2*Math.PI*nx-.5));
+    ny = (1+Math.cos(2*Math.PI*ny));
+
+    var r = 255-ny*nx*n*255;
+    var g = r;
+    var b=255-r;
+
+    var pix = new Utils.Pixel(r, g, b, 255);
+
+    Utils.putpix(imdata, x, y, pix);
+});
+
+ctx.putImageData(imdata, 0, 0);
+]]></script>
+
+			<script type="text/x-recanvas-script" id="preset_dotti"><![CDATA[// Dotti
+
+var canvas = document.querySelector("#canvas"),
+    ctx = canvas.getContext("2d");
+
+var imdata = ctx.createImageData(400, 400);
+
+Utils.loopxy(imdata.width, imdata.height, function(x, y) {
+
+    var scale = 10,
+        nx = x/scale,
+        ny = y/scale
+        val = Math.round(Math.sin(nx) + Math.sin(ny))*255;
+
+    var pix = new Utils.Pixel(val, val, val, 255);
+
+    Utils.putpix(imdata, x, y, pix);
+});
+
+ctx.putImageData(imdata, 0, 0);
+]]></script>
+
+			<script type="text/x-recanvas-script" id="preset_checkerboard"><![CDATA[// Checkerboard
+
+var canvas = document.querySelector("#canvas"),
+    ctx = canvas.getContext("2d");
+
+var imdata = ctx.createImageData(400, 400);
+
+Utils.loopxy(imdata.width, imdata.height, function(x, y) {
+
+    var scale = 40,
+        nx = Math.floor(x/scale),
+        ny = Math.floor(y/scale);
+
+    var val = 0;
+    if((nx%2 == 0 && ny%2 != 0) || (nx%2 != 0 && ny%2 == 0)) val = 255;
+
+    var pix = new Utils.Pixel(val, val, val, 255);
+
+    Utils.putpix(imdata, x, y, pix);
+});
+
+ctx.putImageData(imdata, 0, 0);
+]]></script>
+
+			<script type="text/x-recanvas-script" id="preset_odd"><![CDATA[// Odd texture who's name I can't remember
+
+var canvas = document.querySelector("#canvas"),
+    ctx = canvas.getContext("2d");
+
+var imdata = ctx.createImageData(400, 400);
+
+Utils.loopxy(imdata.width, imdata.height, function(x, y) {
+
+    var scale = 1.6,
+        nx = Math.round(x/scale),
+        ny = Math.round(y/scale);
+
+    var val = Math.min((nx * ny)%255, 255);
+
+    var pix = new Utils.Pixel(val, val, val, 255);
+
+    Utils.putpix(imdata, x, y, pix);
+});
+
+ctx.putImageData(imdata, 0, 0);
+]]></script>
+
+			<script type="text/x-recanvas-script" id="preset_colored_rectangles"><![CDATA[// Colored rectangles
+// Try clicking on the canvas!
+
+var canvas = document.querySelector("#canvas"),
+    ctx = canvas.getContext("2d");
+
+
+function redraw() {
+    Utils.clear(canvas, ctx);
+
+    for(var i=0; i<500; i++) {
+
+        var color = (Math.floor(Math.random()*16*16*16)).toString(16)
+        while (color.length < 3) color = '0' + color;
+
+        ctx.fillStyle = "#" + color;
+        ctx.fillRect(
+            Math.random() * canvas.width,
+            Math.random() * canvas.height,
+            20,
+            20
+        );
+    }
+}
+
+
+canvas.onmousedown = redraw;
+redraw();
+]]></script>
 		</div>
 
     </div>
