@@ -18,7 +18,7 @@ v0.1 - So the interactive canvas thing is finally live! You can check it out at 
 
 I've listed issues I can think of here - some are in **bold**, meaning they should have a higher priority, or are just plain cooler :)
 
- * Name! This project needs a better name (or does it?) mothereffinginteractivecanvas.com has been suggested, other suggestions are welcome. For now, it is called REcanvas, and living on my server ([http://elucidatedbinary.com](http://elucidatedbinary.com)).
+ * Name! This project needs a better name (or does it?) mothereffinginteractivecanvas.com has been suggested, other suggestions are welcome. For now, it is called REcanvas, and living on my server ([http://elucidatedbinary.com](http://elucidatedbinary.com)). Along with this, once we have a name, a logo would be sweet :)
 
  * Issues for the issues. Need to create github issues for each of these items - that way others can work on them and cross them off :)
 
