@@ -166,10 +166,10 @@ Utils = new function() {
 	 * A pixel data structure
 	 */
 	this.Pixel = function(r, g, b, a) {
-	    this.r = r;
-	    this.g = g;
-	    this.b = b;
-	    this.a = a;
+	    this.r = Math.max(r, 0);
+	    this.g = Math.max(g, 0);
+	    this.b = Math.max(b, 0);
+	    this.a = Math.max(a, 0);
 	}
 
 	/**
@@ -297,6 +297,10 @@ Utils = new function() {
 	// This is a port of Ken Perlin's Java code
 	this.perlin = function(x, y, z) {
 		
+		// Catch NaN args
+		if(isNaN(x)) x = 0;
+		if(isNaN(y)) y = 0;
+		if(isNaN(z)) z = 0;
 	
 		// FIND UNIT CUBE THAT CONTAINS POINT
 		var X = Math.floor(x) & 255,
