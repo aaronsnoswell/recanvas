@@ -206,6 +206,11 @@ td { vertical-align: top; }
    Author:
    ========================================================================== */
 
+html, body {
+	height: 100%;
+	overflow: hidden;
+}
+
 #main {
 	position: relative;
 	top: -20px;
