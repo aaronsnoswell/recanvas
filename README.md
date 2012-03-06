@@ -2,6 +2,8 @@
 
 An interactive canvas prototyping tool, based on one shown off by Brett Victor, see [http://vimeo.com/36579366](http://vimeo.com/36579366).
 
+I've also done up a video about this app on YouTube: [http://www.youtube.com/watch?v=DMOIGNjN2ek](http://www.youtube.com/watch?v=DMOIGNjN2ek)
+
 Current features:
 
  * Live updating of the result as you type
