@@ -36,6 +36,8 @@ I've listed issues I can think of here - some are in **bold**, meaning they shou
 
  * Social sharing buttons (twitter, g+, ?facebook?)
 
+ * Learn from Tobias' prior works. Tobias Nurmiranta (https://github.com/tnlogy) beat me to this project and put together a simmilar, but less complete demo. It would be great, if nothing else, to peruse his source code and learn from it. The project is live [here](http://tnlogy.github.com/tnlogy/) and the code is [here](https://github.com/tnlogy/live-coding)
+
  * HTML5 Build Script breaks. At the moment, the uncompressed, unoptimised version is running on the server - this is because the html5 build script breaks on some of the codemirror javascript. It'd be neat to be able to run all the optimisations etc over things before putting them on the server.
 
  * More samples. It'd be neat to see more (/cooler) samples in the preset drop down. Or perhaps things should head a different direction, where any user on the live site can create and save public / private presets (like jsfiddle, dabblet etc)? I'm keen to keep as much functionality client-side as possible, but am not opposed to setting up a light Node.js / other server component. Thoughts?
