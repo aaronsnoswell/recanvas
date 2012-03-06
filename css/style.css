@@ -211,9 +211,13 @@ html, body {
 	overflow: hidden;
 }
 
+body.recanvas {
+	margin-top: 0px;
+}
+
 #main {
 	position: relative;
-	top: -20px;
+	margin-top: 30px;
 }
 
 #notepad {	
@@ -252,7 +256,7 @@ html, body {
 
 #code-wrapper {
 	display: block;
-	position: absolute;
+	position: relative;
 	width: 512px;
 	height: 680px;
 	padding: 10px;
@@ -261,6 +265,8 @@ html, body {
 	resize: none;
 	border: none;
 	background: transparent;
+	
+	float: left;
 	
 	font-size: 11pt;
 	font-family: Pragmata, Menlo, 'DejaVu LGC Sans Mono', 'DejaVu Sans Mono', Consolas, 'Everson Mono', 'Lucida Console', 'Andale Mono', 'Nimbus Mono L', 'Liberation Mono', FreeMono, 'Osaka Monospaced', Courier, 'New Courier', monospace;
