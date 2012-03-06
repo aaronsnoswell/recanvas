@@ -278,6 +278,17 @@ td { vertical-align: top; }
 	content: "Select preset: ";
 }
 
+#made_with_love {
+	display: block;
+	position: fixed;
+	right: 15px;
+	bottom: 5px;
+	
+	font-family: monospace;
+	font-size: 10pt;
+	color: #555;
+}
+
 
 
 /* ==|== media queries ======================================================
