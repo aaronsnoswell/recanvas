@@ -213,11 +213,18 @@ html, body {
 
 body.recanvas {
 	margin-top: 0px;
+	margin-bottom: 0px;
 }
 
 #main {
 	position: relative;
-	margin-top: 30px;
+	margin-top: 15px;
+}
+
+#main header {
+	display: block;
+	width: 100%;
+	clear: both;
 }
 
 #notepad {	
