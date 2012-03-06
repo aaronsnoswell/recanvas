@@ -34,6 +34,10 @@ I've listed issues I can think of here - some are in **bold**, meaning they shou
 
  * A "toggle live update" switch with a sexy padlock / editing icon.
 
+ * A 'refreshing' or 'loading' spinner for the canvas side of the notepad. Sometimes the canvas can take a while to update.
+
+ * Auto-detect when the user is typing quickly then wait for them to finish before updating (this should be an optional feature)
+
  * Social sharing buttons (twitter, g+, ?facebook?)
 
  * Learn from Tobias' prior works. Tobias Nurmiranta (https://github.com/tnlogy) beat me to this project and put together a simmilar, but less complete demo. It would be great, if nothing else, to peruse his source code and learn from it. The project is live [here](http://tnlogy.github.com/tnlogy/) and the code is [here](https://github.com/tnlogy/live-coding)
