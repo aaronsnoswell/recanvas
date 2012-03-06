@@ -59,7 +59,9 @@
 		});
 		
 		// Try and set the initial text
-		editor.setValue(getLocalStorageValue("editorText", editor.getValue()));
+		var val = getLocalStorageValue("editorText", editor.getValue());
+		if(val == "") val = editor.getValue();
+		editor.setValue(val);
 		
 		// Configure the drop down
 		$("#preset_opt").change(function() {
